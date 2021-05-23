@@ -43,7 +43,10 @@ class JuegoController extends Controller
     {
         $partida = $this->getPartidaEnJuego();
         if (!$partida) {
-            $partida = Partida::create();
+            $partida = Partida::create([
+                'posicionesX' => '[]',
+                'posicionesO' => '[]',
+            ]);
             session(['partida_id' => $partida->id]);
         }
 
