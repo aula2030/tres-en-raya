@@ -24,9 +24,10 @@ Para realizar la instalación seguir los siguientes pasos:
 
 1. Clonar el repositorio y situarse en el directorio raíz del proyecto.
 2. Instalar los paquetes PHP ejecutando `composer install`.
-3. Modificar el fichero de configuración `.env` con la url correspondiente (APP_URL) y los datos de acceso a la BD. 
-4. Ejecutar las migraciones de la base de datos con `php artisan migrate`.
-5. Instalar y compilar los assets con `npm install && npm run dev` (`npm run prod` para generar versión optimizadas de js y css).
+3. Modificar el fichero de configuración `.env.example` con la url correspondiente (APP_URL) y los datos de acceso a la BD y guardarlo con el nombre `.env`. 
+4. Generar la clave del proyecto con `php artisan key:generate`.
+5. Ejecutar las migraciones de la base de datos con `php artisan migrate`.
+6. Instalar y compilar los assets con `npm install && npm run dev` (`npm run prod` para generar versión optimizadas de js y css).
 
 ## Consideraciones de diseño
 
