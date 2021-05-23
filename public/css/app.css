@@ -31833,6 +31833,26 @@ video {
   --tw-backdrop-sepia: sepia(100%);
 }
 
+/*
+   Ejemplo de uso de @apply.
+   Alternativa: componentes (https://tailwindcss.com/docs/extracting-components)
+*/
+
+.celda-tablero {
+  --tw-bg-opacity: 1;
+  background-color: rgba(153, 27, 27, var(--tw-bg-opacity));
+  border-radius: 0.375rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  height: 3rem;
+  font-size: 1.5rem;
+  line-height: 2rem;
+  --tw-text-opacity: 1;
+  color: rgba(255, 255, 255, var(--tw-text-opacity));
+}
+
 @media (min-width: 640px) {
   .sm\:container {
     width: 100%;
