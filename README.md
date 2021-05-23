@@ -12,6 +12,7 @@ gana.
 
 - El desarrollo se realiza con la última versión de Laravel. En el momento del desarrollo es la 8.42.1.
 - La aplicación necesita una base de datos MySQL para guardar el desarrollo de las partidas.
+- Como framework CSS se utiliza Tailwind (información sobre su instalación aquí: https://tailwindcss.com/docs/guides/laravel).
 
 ## Instalación
 
@@ -20,3 +21,5 @@ gana.
 - Modificar el fichero de configuración `.env` con la url correspondiente (APP_URL) y los datos de acceso a la BD. 
 - Ejecutar las migraciones de la base de datos con `php artisan migrate`.
 - Instalar y compilar los assets con `npm install && npm run dev`.
+
+
