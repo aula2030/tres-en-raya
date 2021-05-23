@@ -7,7 +7,7 @@
         <div class="rounded-t-xl bg-yellow-50 p-8">
             <div class="grid grid-cols-3 gap-4">
                 @foreach ($posiciones as $posicion)
-                    <div class="{{ !$posicion ? 'celda-tablero-libre' : 'celda-tablero' }}"
+                    <div class="{{ $partida && !$partida->finalizada() && !$posicion ? 'celda-tablero-libre' : 'celda-tablero' }}"
                         data-index-number="{{ $loop->index + 1 }}">
                         {{ $posicion }}
                     </div>
@@ -17,17 +17,18 @@
     </form>
 
     @if ($partida)
-        <div class="flex items-center justify-center text-gray-600">
-            <p class="text-2xl font-medium">Turno Jugador {{ $turno }}</p>
-        </div>
+        @if ($partida->finalizada())
+            <div class="flex items-center justify-center text-gray-600">
+                <p class="text-2xl font-medium">Ganador: {{ $partida->ganador }}</p>
+            </div>
+            @include('layouts.boton_iniciar')
+        @else
+            <div class="flex items-center justify-center text-gray-600">
+                <p class="text-2xl font-medium">Turno Jugador {{ $turno }}</p>
+            </div>
+        @endif
     @else
-        <div class="flex items-center justify-center p-3">
-            <form method="POST" action="/">
-                @csrf
-                <input type="submit" id="btn-iniciar-partida"
-                    class="rounded-md bg-yellow-400 p-3 text-2xl font-medium text-white" value="Iniciar partida" />
-            </form>
-        </div>
+        @include('layouts.boton_iniciar')
     @endif
 
 @endsection

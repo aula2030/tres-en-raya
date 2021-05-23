@@ -37,7 +37,7 @@ class JuegoController extends Controller
     public function nuevaPartida()
     {
         $partida = $this->getPartidaEnJuego();
-        if (!$partida) {
+        if (!$partida || $partida->finalizada()) {
             $partida = Partida::create([
                 'posicionesX' => '[]',
                 'posicionesO' => '[]',
