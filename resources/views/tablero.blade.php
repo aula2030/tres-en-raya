@@ -19,7 +19,7 @@
 
     @if ($partida)
         <div class="flex items-center justify-center text-gray-600">
-            <p class="text-2xl font-medium">Turno: </p>
+            <p class="text-2xl font-medium">Turno Jugador {{ $turno }}</p>
         </div>
     @else
         <div class="flex items-center justify-center p-3">

@@ -19,9 +19,13 @@ class JuegoController extends Controller
 
         $posiciones = $this->determinarPosiciones($partida);
 
+        // cálculo del turno automático
+        $turno = (0 == count(array_filter($posiciones)) % 2) ? 'X' : 'O';
+
         return view('tablero', [
             'partida' => $partida,
             'posiciones' => $posiciones,
+            'turno' => $turno,
         ]);
     }
 
