@@ -10,11 +10,11 @@ gana.
 
 ## Consideraciones de desarrollo
 
-- El desarrollo se realiza con la última versión de Laravel. En el momento del desarrollo es la 8.42.1.
+- El desarrollo se realiza con la última versión de Laravel (8.42.1). Los requisitos mínimos para el sistema se detallan aquí: https://laravel.com/docs/8.x/deployment.
 - La aplicación necesita una base de datos MySQL para guardar el desarrollo de las partidas.
 - Como framework CSS se utiliza Tailwind (información sobre su instalación aquí: https://tailwindcss.com/docs/guides/laravel).
 
-## Instalación
+## Instalación del juego
 
 - Clonar el repositorio.
 - Instalar los paquetes PHP con `composer install`.
@@ -22,4 +22,9 @@ gana.
 - Ejecutar las migraciones de la base de datos con `php artisan migrate`.
 - Instalar y compilar los assets con `npm install && npm run dev`.
 
+## Consideraciones de diseño
+
+### Vistas (Blade)
+
+- No se considera necesario dividir las plantillas en componentes. Como ejemplo sirve la separación del tablero como "contenido" de la plantilla principal `layouts.app`.
 
