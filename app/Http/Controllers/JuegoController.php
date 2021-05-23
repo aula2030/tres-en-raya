@@ -58,21 +58,8 @@ class JuegoController extends Controller
         $partida = $this->getPartidaEnJuego();
 
         // solo si existe una partida en juego no terminada
-        if ($partida && is_null($partida->ended_at)) {
-            $posiciones = $this->determinarPosiciones($partida);
-            // si el movimiento es correcto
-            if ($posiciones[$request->celdaSeleccionada] == false) {
-                if ($this->calcularTurno($posiciones) == 'O') {
-                    $posicionesO = json_decode($partida->posicionesO, true);
-                    $posicionesO[] = $request->celdaSeleccionada;
-                    $partida->posicionesO = json_encode($posicionesO);
-                } else {
-                    $posicionesX = json_decode($partida->posicionesX, true);
-                    $posicionesX[] = $request->celdaSeleccionada;
-                    $partida->posicionesX = json_encode($posicionesX);
-                }
-                $partida->save();
-            }
+        if ($partida && !$partida->finalizada()) {
+            $this->procesarMovimiento($partida, $request->celdaSeleccionada);
         }
 
         return redirect()->route('tablero');
@@ -120,5 +107,57 @@ class JuegoController extends Controller
     private function calcularTurno(array $posiciones)
     {
         return (0 == count(array_filter($posiciones)) % 2) ? 'O' : 'X';
+    }
+
+    /**
+     * Guardar la nueva posición de ficha
+     *
+     * @param App\Models\Partida $partida
+     * @param int $celda
+     * @return void
+     */
+    private function procesarMovimiento(Partida $partida, int $celda)
+    {
+        // si el movimiento es correcto
+        $posiciones = $this->determinarPosiciones($partida);
+        if ($posiciones[$celda] == false) {
+            $turno = $this->calcularTurno($posiciones);
+            if ($turno == 'O') {
+                $posicionesJugador = json_decode($partida->posicionesO, true);
+                $posicionesJugador[] = $celda;
+                $partida->posicionesO = json_encode($posicionesJugador);
+            } else {
+                $posicionesJugador = json_decode($partida->posicionesX, true);
+                $posicionesJugador[] = $celda;
+                $partida->posicionesX = json_encode($posicionesJugador);
+            }
+            // comprobar final de partida (por ganador o por tablero completo)
+            if ($this->posicionGanadora($posicionesJugador)) {
+                $partida->ended_at = now();
+                $partida->ganador = $turno;
+            } elseif (count(array_filter($posiciones)) == 8) {
+                $partida->ended_at = now();
+                $partida->ganador = 'Tablas';
+            }
+            $partida->save();
+        }
+    }
+
+    /**
+     * Comprobar si la posición es ganadora
+     *
+     * @param array $posiciones
+     * @return bool
+     */
+    private function posicionGanadora(array $posicionesJugador)
+    {
+        return count(array_intersect($posicionesJugador, array("1", "2", "3"))) === 3
+            || count(array_intersect($posicionesJugador, array("4", "5", "6"))) === 3
+            || count(array_intersect($posicionesJugador, array("7", "8", "9"))) === 3
+            || count(array_intersect($posicionesJugador, array("1", "4", "7"))) === 3
+            || count(array_intersect($posicionesJugador, array("2", "5", "8"))) === 3
+            || count(array_intersect($posicionesJugador, array("3", "6", "9"))) === 3
+            || count(array_intersect($posicionesJugador, array("1", "5", "9"))) === 3
+            || count(array_intersect($posicionesJugador, array("3", "5", "7"))) === 3;
     }
 }

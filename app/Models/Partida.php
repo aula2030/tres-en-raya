@@ -15,4 +15,14 @@ class Partida extends Model
      * @var array
      */
     protected $fillable = ['posicionesX', 'posicionesO'];
+
+    /**
+     * Partida finalizada
+     *
+     * @return bool
+     */
+    public function finalizada()
+    {
+        return !is_null($this->ended_at);
+    }
 }
