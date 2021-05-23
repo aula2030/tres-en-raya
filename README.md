@@ -49,3 +49,8 @@ No se considera necesario almacenar datos complementarios de la partida más all
 - Fecha de finalización de la partida.
 - Ganador de la partida (o tablas).
 
+### Javascript
+
+- No se ha añadido controles adicionales en el front end. Por ejemplo, para evitar múltiples envíos al hacer click repetidamente en una celda vacía. Como el servidor controla que el movimiento sea correcto solo se procesarán aquellos movimientos que respondan al desarrollo de la partida.
+- Como no es posible realizar movimientos o acciones erróneas desde el frontend (que no sean resultado de un uso fraudulento) no se considera necesario informar al usuario de errores tipo "Movimiento incorrecto", etc...
+

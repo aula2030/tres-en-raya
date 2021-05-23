@@ -25,3 +25,4 @@ Route::get('/', [JuegoController::class, 'showTablero'])->name('tablero');
  * Rutas de acciones del juego
  */
 Route::post('/', [JuegoController::class, 'nuevaPartida']);
+Route::post('/colocar', [JuegoController::class, 'colocarFicha']);

@@ -20,7 +20,7 @@ class JuegoController extends Controller
         $posiciones = $this->determinarPosiciones($partida);
 
         // cálculo del turno automático
-        $turno = (0 == count(array_filter($posiciones)) % 2) ? 'X' : 'O';
+        $turno = $this->calcularTurno($posiciones);
 
         return view('tablero', [
             'partida' => $partida,
@@ -43,6 +43,36 @@ class JuegoController extends Controller
                 'posicionesO' => '[]',
             ]);
             session(['partida_id' => $partida->id]);
+        }
+
+        return redirect()->route('tablero');
+    }
+
+    /**
+     * Colocar ficha en el tablero si movimiento correcto
+     *
+     * @return \Illuminate\View\View
+     */
+    public function colocarFicha(Request $request)
+    {
+        $partida = $this->getPartidaEnJuego();
+
+        // solo si existe una partida en juego no terminada
+        if ($partida && is_null($partida->ended_at)) {
+            $posiciones = $this->determinarPosiciones($partida);
+            // si el movimiento es correcto
+            if ($posiciones[$request->celdaSeleccionada] == false) {
+                if ($this->calcularTurno($posiciones) == 'O') {
+                    $posicionesO = json_decode($partida->posicionesO, true);
+                    $posicionesO[] = $request->celdaSeleccionada;
+                    $partida->posicionesO = json_encode($posicionesO);
+                } else {
+                    $posicionesX = json_decode($partida->posicionesX, true);
+                    $posicionesX[] = $request->celdaSeleccionada;
+                    $partida->posicionesX = json_encode($posicionesX);
+                }
+                $partida->save();
+            }
         }
 
         return redirect()->route('tablero');
@@ -79,5 +109,16 @@ class JuegoController extends Controller
         }
 
         return $posiciones;
+    }
+
+    /**
+     * Calcular turno del juego
+     *
+     * @param array $posiciones (del tablero)
+     * @return String ['X', 'O']
+     */
+    private function calcularTurno(array $posiciones)
+    {
+        return (0 == count(array_filter($posiciones)) % 2) ? 'O' : 'X';
     }
 }

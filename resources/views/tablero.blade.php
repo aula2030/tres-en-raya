@@ -1,21 +1,20 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="rounded-xl bg-yellow-50 p-8">
-        <div class="grid grid-cols-3 gap-4">
-            @foreach ($posiciones as $posicion)
-                <div class={{ !$posicion ? 'celda-tablero-libre' : 'celda-tablero' }}>
-                    {{ $posicion }}
-                </div>
-            @endforeach
+    <form id="formMovimiento" method="POST" action="/colocar">
+        @csrf
+        <input type="hidden" name="celdaSeleccionada" value="qq">
+        <div class="rounded-t-xl bg-yellow-50 p-8">
+            <div class="grid grid-cols-3 gap-4">
+                @foreach ($posiciones as $posicion)
+                    <div class="{{ !$posicion ? 'celda-tablero-libre' : 'celda-tablero' }}"
+                        data-index-number="{{ $loop->index + 1 }}">
+                        {{ $posicion }}
+                    </div>
+                @endforeach
+            </div>
         </div>
-    </div>
-
-    @if (!empty($mensajeError))
-        <div class="rounded-md flex items-center justify-center bg-red-300 my-2 p-3">
-            <p class="font-medium text-red-800">{{ $mensajeError }}</p>
-        </div>
-    @endif
+    </form>
 
     @if ($partida)
         <div class="flex items-center justify-center text-gray-600">
