@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 
+use App\Http\Controllers\JuegoController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -13,6 +15,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('tablero');
-});
+/**
+ * Ruta principal: gestión del tablero y las partidas
+ * (formato de acceso al controller nuevo en Laravel 8)
+ */
+Route::get('/', [JuegoController::class, 'showTablero']);
