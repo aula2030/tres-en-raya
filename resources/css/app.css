@@ -9,3 +9,7 @@
 .celda-tablero {
     @apply flex items-center justify-center h-20 rounded-md bg-red-800 text-white text-4xl font-extrabold;
 }
+
+.celda-tablero-libre {
+    @apply celda-tablero hover:bg-red-500 cursor-pointer;
+}

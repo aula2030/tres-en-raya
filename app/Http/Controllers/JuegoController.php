@@ -17,21 +17,12 @@ class JuegoController extends Controller
     {
         $partida = $this->getPartidaEnJuego();
 
+        $posiciones = $this->determinarPosiciones($partida);
+
         return view('tablero', [
             'partida' => $partida,
+            'posiciones' => $posiciones,
         ]);
-    }
-
-    /**
-     * Recuperar los datos de la partida en juego, si hay una.
-     *
-     * @return \App\Models\Partida
-     */
-    private function getPartidaEnJuego()
-    {
-        return session()->has('partida_id')
-            ? Partida::find(session('partida_id'))
-            : null;
     }
 
     /**
@@ -51,5 +42,38 @@ class JuegoController extends Controller
         }
 
         return redirect()->route('tablero');
+    }
+
+    /**
+     * Recuperar los datos de la partida en juego, si hay una.
+     *
+     * @return \App\Models\Partida
+     */
+    private function getPartidaEnJuego()
+    {
+        return session()->has('partida_id')
+            ? Partida::find(session('partida_id'))
+            : null;
+    }
+
+    /**
+     * Determinar las 9 posiciones del tablero (false, X, O)
+     *
+     * @return array
+     */
+    private function determinarPosiciones(Partida $partida = null)
+    {
+        $posiciones = array_fill(1, 9, false);
+
+        if ($partida) {
+            foreach (json_decode($partida->posicionesX, true) as $celdaX) {
+                $posiciones[$celdaX] = 'X';
+            }
+            foreach (json_decode($partida->posicionesO, true) as $celdaO) {
+                $posiciones[$celdaO] = 'O';
+            }
+        }
+
+        return $posiciones;
     }
 }

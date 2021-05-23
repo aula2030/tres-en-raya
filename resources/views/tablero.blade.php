@@ -3,24 +3,11 @@
 @section('content')
     <div class="rounded-xl bg-yellow-50 p-8">
         <div class="grid grid-cols-3 gap-4">
-            <div class="celda-tablero">X
-            </div>
-            <div class="celda-tablero">O
-            </div>
-            <div class="celda-tablero">O
-            </div>
-            <div class="celda-tablero">O
-            </div>
-            <div class="celda-tablero">X
-            </div>
-            <div class="celda-tablero">X
-            </div>
-            <div class="celda-tablero">O
-            </div>
-            <div class="celda-tablero">X
-            </div>
-            <div class="celda-tablero">O
-            </div>
+            @foreach ($posiciones as $posicion)
+                <div class={{ !$posicion ? 'celda-tablero-libre' : 'celda-tablero' }}>
+                    {{ $posicion }}
+                </div>
+            @endforeach
         </div>
     </div>
 
