@@ -32,6 +32,12 @@ gana.
 - Se comprueba en el servidor que cada movimiento sea válido teniendo en cuenta el estado del tablero, y si una vez realizado el movimiento hay un ganador.
 - Cuando una partida termina se muestra el ganador y se vuelve al estado inicial.
 
+Además:
+
+- Para permitir partidas simultáneas de manera sencilla, sin necesidad de utilizar usuarios registrados, se guarda el identificador de partida en la sesión con las utilidades de Laravel.
+- Si una sesión termina inesperadamente por razón indeterminada, se debe iniciar una partida nueva.
+- No se ha considerado necesario realizar una gestión de sesiones (o partidas) perdidas.
+
 ### Vistas (Blade)
 
 - No se considera necesario dividir las plantillas en componentes. Como ejemplo sirve la separación del tablero como "contenido" de la plantilla principal `layouts.app`.

@@ -19,4 +19,9 @@ use App\Http\Controllers\JuegoController;
  * Ruta principal: gestión del tablero y las partidas
  * (formato de acceso al controller nuevo en Laravel 8)
  */
-Route::get('/', [JuegoController::class, 'showTablero']);
+Route::get('/', [JuegoController::class, 'showTablero'])->name('tablero');
+
+/**
+ * Rutas de acciones del juego
+ */
+Route::post('/', [JuegoController::class, 'nuevaPartida']);
