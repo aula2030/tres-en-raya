@@ -7,5 +7,5 @@
    Alternativa: componentes (https://tailwindcss.com/docs/extracting-components)
 */
 .celda-tablero {
-    @apply flex items-center justify-center h-12 rounded-md bg-red-800 text-white text-2xl font-extrabold;
+    @apply flex items-center justify-center h-20 rounded-md bg-red-800 text-white text-4xl font-extrabold;
 }
