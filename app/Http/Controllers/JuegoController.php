@@ -55,11 +55,15 @@ class JuegoController extends Controller
      */
     public function colocarFicha(Request $request)
     {
+        $datosValidados = $request->validate([
+            'celdaSeleccionada' => 'required|integer|min:1|max:9',
+        ]);
+
         $partida = $this->getPartidaEnJuego();
 
         // solo si existe una partida en juego no terminada
         if ($partida && !$partida->finalizada()) {
-            $this->procesarMovimiento($partida, $request->celdaSeleccionada);
+            $this->procesarMovimiento($partida, $datosValidados['celdaSeleccionada']);
         }
 
         return redirect()->route('tablero');
