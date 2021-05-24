@@ -61,6 +61,10 @@ No se considera necesario almacenar datos complementarios de la partida más all
 
 No se considera necesario incluir una capa intermedia para aislar la implementación de las operaciones con los modelos (patrón de repositorios).
 
+#### c) Concurrencia
+
+He obviado el problema de concurrencia en accesos simultáneos, en caso de una petición intercalada entre la lectura de la partida y la sentencia de actualización del nuevo movimiento, manejable con un SELECT FOR UPDATE.
+
 ### 4. Javascript
 
 - No se ha añadido controles adicionales en el front end. Por ejemplo, para evitar múltiples envíos al hacer click repetidamente en una celda vacía. Como el servidor controla que el movimiento sea correcto solo se procesarán aquellos movimientos que respondan al desarrollo de la partida.
